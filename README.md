@@ -23,9 +23,14 @@ A web-based movie streaming platform that allows users to browse and watch movie
 ### Movie List
 ![MovieList](screenshots/MovieList.png)
 
-### Login / Register
+### Movie Player
+![MovieList](screenshots/MoviePlayer.png)
+
+### Login
 ![Login](screenshots/Login.png)
-![Login](screenshots/Register.png)
+
+ ### Register
+![Register](screenshots/Register.png)
 
 ## Author
 Rasindu Thenuwara
