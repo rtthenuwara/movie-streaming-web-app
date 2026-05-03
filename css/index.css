@@ -1,0 +1,668 @@
+/* --- General Movie Section Styling --- */
+.movie-section {
+    padding: 2rem 5%; /* Adjust padding as needed */
+    margin-bottom: 2rem;
+}
+
+.movie-section h2 {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color); /* Assuming you have a primary color variable */
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+/* --- Movie Card Styling (Common for both sections) --- */
+.movie-card {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    width: 200px; /* Adjust card width as needed */
+    flex-shrink: 0; /* Important for carousel */
+    margin: 0 0.5rem; /* Space between cards in carousel */
+    cursor: pointer;
+    text-align: center;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 300px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures image covers the area */
+    display: block;
+}
+
+.movie-card .movie-title {
+    color: #fff;
+    padding: 1rem 0.5rem;
+    font-size: 1.1rem;
+    white-space: nowrap; /* Prevent title from wrapping */
+    overflow: hidden;    /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for clipped titles */
+}
+
+/* --- Carousel Specific Styling (Trending Now) --- */
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.movie-carousel {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem; /* Space for scrollbar */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari, Opera */
+.movie-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-button {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    transition: background-color 0.2s;
+}
+
+.nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+    left: 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.next-btn {
+    right: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+/* --- Latest Movies Grid Styling --- */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-content: center; /* ⭐️ FIX: අසම්පූර්ණ පේළි මැදට align කිරීම ⭐️ */
+    /* justify-items: center; <-- මේක අයින් කරන්න */
+}
+
+.latest-grid .movie-card {
+    margin: 0; /* Remove margin as gap handles spacing */
+}
+
+
+/* --- Show All Movies Button --- */
+.show-all-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.show-all-btn {
+    background-color: var(--primary-color); /* Your primary color */
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.show-all-btn:hover {
+    background-color: #008cba; /* A slightly darker shade of your primary color */
+}
+
+/* --- No Movies / Error Message Styling --- */
+.no-movies, .error-message {
+    color: #aaa;
+    text-align: center;
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.2rem;
+}
+
+/* ================================================= */
+/* ==       UPDATED MOVIE CARD HOVER EFFECT       == */
+/* ================================================= */
+
+/* --- Movie Card එකේ මූලික Styles --- */
+.movie-card {
+    background-color: transparent; /* background එක විනිවිද පෙනෙන ලෙස සකසමු */
+    box-shadow: none; /* කලින් තිබූ shadow ඉවත් කරමු */
+    cursor: pointer;
+    text-align: center;
+    overflow: visible; /* hover effects card එකෙන් පොඩ්ඩක් එලියට යන්න ඉඩ දෙමු */
+}
+
+/* image එකට පහළින් ඇති title එක */
+.movie-card .movie-title {
+    color: var(--color-silver); /* ඔබේ theme එකේ රිදී පැහැය */
+    padding: 0.8rem 0.5rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s ease;
+}
+
+.movie-card:hover .movie-title {
+    color: var(--color-neon-blue); /* hover කරද්දී title එක highlight කරමු */
+}
+
+/* --- Image Container (Overlay එකට parent වෙන්නේ මේක) --- */
+.card-image-container {
+    position: relative; /* overlay එක මේකට සාපේක්ෂව position වෙනවා */
+    border-radius: 8px;
+    overflow: hidden; /* blur වෙන image එක corners වලින් එලියට යන්නේ නැතිවෙන්න */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover .card-image-container {
+    transform: scale(1.05); /* hover කරද්දී card එක පොඩ්ඩක් ලොකු කරමු */
+    box-shadow: 0 8px 30px rgba(0, 200, 255, 0.3); /* Neon glow effect */
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.3s ease; /* blur effect එක සිනිඳුවට වෙන්න */
+}
+
+/* --- hover කරද්දී image එක blur කිරීම --- */
+.movie-card:hover .card-image-container img {
+    filter: blur(8px);
+}
+
+/* --- Overlay එකේ Styles --- */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 0, 20, 0.6); /* අඩක් විනිවිද පෙනෙන තද දම් පැහැති background එකක් */
+    
+    /* overlay එක ඇතුළේ content මැදට ගන්න */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* සාමාන්‍යයෙන් සඟවා තබන්න */
+    opacity: 0;
+    visibility: hidden;
+    
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* --- hover කරද්දී overlay එක පෙන්වීම --- */
+.movie-card:hover .card-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Overlay එක ඇතුළේ content වල Styles --- */
+.card-overlay .watch-icon {
+    font-size: 3rem;
+    color: var(--color-neon-blue);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 15px var(--color-neon-blue);
+}
+
+.card-overlay .card-title-overlay {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.card-overlay .card-year-overlay {
+    font-size: 0.9rem;
+    background-color: rgba(0, 200, 255, 0.8); /* Neon නිල් පැහැති badge එකක් */
+    color: #000;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Overlay එක ඇතුළේ content වල Styles */
+.card-overlay .watch-icon {
+    font-size: 3rem;
+    color: var(--color-neon-blue);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 15px var(--color-neon-blue);
+}
+
+/* ============================================== */
+/* ==       LIVE SEARCH RESULTS STYLING        == */
+/* ============================================== */
+
+/* --- Positioning the search bar container --- */
+.search-bar {
+    position: relative; /* Crucial for positioning the results container */
+}
+
+/* --- The container for the search results --- */
+#search-results-container {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Position it right below the search bar */
+    left: 0;
+    width: 100%;
+    max-height: 400px; /* Limit height and allow scrolling */
+    overflow-y: auto;
+    background-color: var(--color-dark-grey); /* Use your theme's dark color */
+    border: 1px solid var(--color-purple);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    z-index: 1500; /* Ensure it appears on top of other content */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+/* --- Styling for a single result item --- */
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    cursor: pointer;
+    /* transition: background-color 0.2s ease; */
+    background-color: #000;
+    border-bottom: 1px solid #333;
+}
+
+.search-result-item:last-child {
+    border-bottom: none; /* Remove border from the last item */
+}
+
+.search-result-item:hover {
+    background-color: var(--color-purple); /* Highlight on hover */
+}
+
+/* --- Styling for the poster image in the result --- */
+.search-result-item img {
+    width: 50px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+/* --- Styling for the text info (title and year) --- */
+.search-result-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.search-result-title {
+    color: var(--color-white);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-result-year {
+    color: var(--color-silver);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================
+// == FIX: Show 10 items on Laptop, 14 on Large Screens ==
+// ========================================================== */
+
+/* Default (Large Screens): All 14 items will be visible */
+
+/* Media Query for Laptops and smaller screens */
+@media (max-width: 1400px) { 
+    .latest-grid .movie-card:nth-child(n + 11) {
+        /* 11 වෙනි movie card එකේ සිට (11, 12, 13, 14) 
+           සඟවන්න (hide කරන්න) */
+        display: none; 
+    }
+}
+
+/* Justify content center එක තවමත් තබා ගැනීම හොඳයි, 
+   14ක් load කළත් සමහරවිට ලොකු screen එකක අන්තිම පේළිය 
+   (උදා: 8 columns නම් 8+6) පිරෙන්නේ නැති වෙන්න පුළුවන් */
+.movie-grid { /* ඔබගේ .latest-grid එකටත් මේ style එක apply වෙනවා නම් */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-content: center; /* ⭐️ Keep this for centering incomplete rows ⭐️ */
+}
+
+
+/* ==========================================================
+// ==         HERO SECTION SLIDESHOW STYLES (NEW)          ==
+// ========================================================== */
+
+.hero-slideshow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Slides container එකෙන් පිට පනින දේ සඟවන්න */
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;     /* Image එක සම්පූර්ණයෙන් cover වීමට */
+    background-position: center; /* Image එක මැදට align වීමට */
+    opacity: 0;                 /* සාමාන්‍යයෙන් සඟවා තැබීම */
+    transition: opacity 1.5s ease-in-out; /* සෙමින් fade වීමට animation */
+    z-index: 1;                 /* Overlay එකට යටින් තැබීමට (overlay එක 2) */
+}
+
+.hero-slide.active {
+    opacity: 1; /* Active slide එක පෙන්වීම */
+    z-index: 2; /* Active slide එක අනිත් slides වලට උඩින් තැබීම */
+}
+
+/* Hero Overlay එක slideshow එකට උඩින් තැබීම */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(5, 5, 5, 1) 0%, rgba(5, 5, 5, 0.7) 50%, rgba(5, 5, 5, 1) 100%);
+    z-index: 3; /* Slideshow (1, 2) සහ content (4) අතර තැබීම */
+}
+
+/* Hero Content එක සියල්ලටම උඩින් තැබීම */
+.hero-content {
+    position: relative;
+    z-index: 4; /* සියල්ලටම උඩින් */
+    max-width: 800px;
+}
+
+/* ==================================================================
+// ==               INDEX PAGE RESPONSIVE STYLES                   ==
+// ================================================================== */
+
+/* --- Small Devices (Portrait Tablets, Large Phones - 768px and down) --- */
+@media (max-width: 768px) {
+    .movie-card {
+        width: 160px; /* Card පළල අඩු කිරීම */
+    }
+    .card-image-container img {
+         height: 240px; /* Image උස අඩු කිරීම */
+    }
+    .movie-title {
+        font-size: 0.9rem; /* Title font එක කුඩා කිරීම */
+    }
+    
+    /* Carousel arrows කුඩා කිරීම */
+    .nav-button {
+        padding: 1rem 0.8rem;
+        font-size: 1.2rem;
+    }
+}
+
+/* --- Extra Small Devices (Phones - 576px and down) --- */
+@media (max-width: 576px) {
+    .movie-grid {
+         /* Phone එකේදී cards අතර පරතරය අඩු කිරීම */
+        gap: 1rem; 
+         /* Phone එකේදී card එකේ අඩුම පළල අඩු කිරීම */
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
+    }
+    
+    .card-image-container img {
+        height: 200px; /* Image උස තවත් අඩු කිරීම */
+    }
+    .movie-title {
+        font-size: 0.8rem;
+    }
+    
+    .carousel-container {
+        /* Phone එකේදී arrows hide කිරීම (optional) */
+       /* position: static; */
+    }
+     .nav-button {
+        /* display: none; */ /* Arrows hide කරනවා නම් */
+        padding: 0.8rem 0.6rem;
+        font-size: 1rem;
+        top: 45%; /* Image එක කුඩා වූ නිසා position එක සකස් කිරීම */
+    }
+    
+     .show-all-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================================
+// == FIX: Show 12 items on Laptop, 14 on Large Screens ==
+// ========================================================== */
+
+/* Default (Large Screens - 1600px+): All 14 items visible (7+7) */
+.latest-grid {
+    /* Grid එකේ columns ගණන ස්වයංක්‍රීයව හැදෙන්න දෙන්න (auto-fill) */
+}
+
+/* Laptop Screens (Under 1600px width) */
+@media (max-width: 1600px) { 
+    /* Hide the last 2 items (13th and 14th) */
+    .latest-grid .movie-card:nth-child(n + 13) {
+        display: none; 
+    }
+}
+
+/* Optional: Ensure grid centering */
+.movie-grid { 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-content: center; /* Center incomplete rows just in case */
+}
+
+/* ==============================================
+   MEDIA TYPE BADGE (Movie/Series Indicator)
+   ============================================== */
+.media-type-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+    z-index: 5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    pointer-events: none;
+    
+    /* ⭐ වෙනස 1: සාමාන්‍යයෙන් මේක හංගනවා ⭐ */
+    display: none; 
+}
+
+/* ⭐ වෙනස 2: Trending Section එක ඇතුලේ විතරක් පෙන්නනවා ⭐ */
+.trending-section .media-type-badge {
+    display: block;
+}
+
+/* Movie සඳහා (Netflix Red) */
+.media-type-badge.movie {
+    background-color: rgba(229, 9, 20, 0.8);
+    border: 1px solid rgba(229, 9, 20, 1);
+}
+
+/* Series සඳහා (Neon Blue) */
+.media-type-badge.series {
+    background-color: rgba(0, 200, 255, 0.8);
+    border: 1px solid var(--color-neon-blue);
+    color: #000;
+}
+
+/* =========================================
+   NEWS TICKER (LATEST UPDATES BAR)
+   ========================================= */
+.news-ticker-container {
+    background: linear-gradient(90deg, #1a0033 0%, #000 50%, #1a0033 100%);
+    border-bottom: 1px solid var(--color-neon-blue);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    height: 40px;
+    overflow: hidden; /* එළියට යන අකුරු කපන්න */
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    z-index: 900;
+}
+
+.ticker-label {
+    background: var(--color-neon-blue);
+    color: #000;
+    font-weight: 700;
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.8);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.ticker-text-wrap {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap; /* අකුරු පෙළ පහළට කැඩෙන්න දෙන්නෙ නෑ */
+    position: relative;
+}
+
+.ticker-move {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker-scroll 60s linear infinite; /* තත්පර 30කින් වටයක් යනවා */
+    padding-left: 100%; /* පටන් ගද්දි Screen එකෙන් එළියේ තියන්න */
+}
+
+/* Mouse එක ගෙනාවම නවතින්න (User ට කියවන්න ඕන නම්) */
+.ticker-text-wrap:hover .ticker-move {
+    animation-play-state: paused;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 2rem;
+    color: #ccc;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.ticker-item a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.ticker-item a:hover {
+    color: var(--color-neon-blue);
+    text-shadow: 0 0 5px var(--color-neon-blue);
+}
+
+.ticker-tag {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tag-movie { background: #e50914; color: white; }
+.tag-episode { background: #00c853; color: white; }
+
+/* Scroll Animation Keyframes */
+@keyframes ticker-scroll {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .ticker-label {
+        font-size: 0.7rem;
+        padding: 0 10px;
+    }
+    .ticker-label span {
+        display: none; /* Mobile එකේදි 'UPDATES' කියන වචනෙ හංගලා Icon එක විතරක් පෙන්නනවා */
+    }
+    .ticker-label i {
+        margin: 0;
+    }
+}
+
+/* =========================================
+   MOVIE GRID (2 ITEMS PER ROW ON MOBILE)
+   ========================================= */
+
+/* Mobile වලදී විශේෂ වෙනසක් (පේළියට 2යි) */
+@media (max-width: 768px) {
+    .movie-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; /* තීරු 2ක් (Columns) */
+        gap: 10px !important; /* මැද හිස් ඉඩ */
+        padding: 0 10px !important;
+        justify-content: normal !important;
+    }
+
+    /* Grid එක ඇතුලේ Card එකේ පළල 100% කරන්න (Grid කොටුව පිරෙන්න) */
+    .movie-grid .movie-card {
+        width: 100% !important; 
+        min-width: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Image එකේ උස ස්වයංක්‍රීයව හැදෙන්න */
+    .movie-grid .movie-card .card-image-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 2/3; /* Poster Size එක ලස්සනට තියාගන්න */
+    }
+    
+    .movie-grid .movie-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

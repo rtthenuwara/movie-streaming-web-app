@@ -1,0 +1,1538 @@
+/* ============================================================
+   FIX FOR BUNNY.NET EMBED PLAYER - FULL COVER VIDEO
+   ============================================================ */
+
+/* ============================================================
+   PLYR PLAYER FULL SCREEN FIX
+   ============================================================ */
+
+/* 1. New Wrapper DIV (id="video-wrapper") එකට Fullscreen Styles ලබා දීම */
+#video-wrapper {
+    /* Fullscreen එකටම විහිදෙන්න අවශ්‍යයි */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 2. Plyr Player එකේම Container (එය .plyr class එකෙන් හඳුනාගත හැක) */
+#video-wrapper .plyr {
+    /* Plyr Player එක wrapper එක තුළටම stretch විය යුතුයි */
+    width: 100% !important;
+    height: 100% !important;
+    /* Plyr වලට අවශ්‍ය වන්නේ .plyr එකට width/height 100% දීමයි */
+}
+
+/* 3. HTML5 Video Tag එකට අවශ්‍ය Styles */
+#video-wrapper video {
+    /* HTML5 video element එක ද wrapper එක තුළටම stretch විය යුතුයි */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    /* Player එක fill වීමට */
+}
+
+/* ============================================================
+   PLEXZONE STREAM BRANDING OVERLAY
+   ============================================================ */
+
+.player-branding-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    /* ⭐️ FIX 1: z-index එක උපරිමයටම සකස් කිරීම ⭐️ */
+    z-index: 2147483647 !important;
+    /* මෙය සෑම විටම ඕනෑම දෙයකට වඩා ඉහළින් පෙන්විය යුතුය */
+
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+
+/* ⭐️ FIX 2: Fullscreen mode එකේදී Branding එක පෙන්වීමට සහතික කිරීම ⭐️ */
+/* Plyr Fullscreen mode එකේදී Player එකේම Controls Container එකට Styles යෙදීම */
+.plyr--fullscreen .player-branding-overlay {
+    position: fixed !important;
+    /* Fullscreen එකේදී Viewport එකටම ගැලපෙන්න fixed කරන්න */
+    /* z-index: 2147483647 !important; (ඉහත දැමූ නිසා මෙහි අවශ්‍ය නැත, නමුත් දෝෂ ඇති වුවහොත් භාවිත කරන්න) */
+    top: 20px !important;
+    left: 20px !important;
+}
+
+/* කුඩා තිර සඳහා font size එක අඩු කිරීම (Optional) */
+@media (max-width: 768px) {
+    .player-branding-overlay {
+        display: none;
+    }
+
+    .plyr__controls {
+        padding-bottom: 10px !important;
+        padding-bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    .plyr__controls .plyr__control svg {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    .plyr__time {
+        font-size: 10px !important;
+        padding-left: 3px !important;
+        padding-right: 3px !important;
+        letter-spacing: 0.5px;
+    }
+
+    /* ⭐ Volume Slider Hide Fix ⭐ */
+    .plyr__volume input[type=range] {
+        display: none !important;
+    }
+
+    .plyr__volume {
+        width: auto !important;
+        min-width: auto !important;
+        max-width: auto !important;
+        flex: 0 0 auto !important;
+        margin-right: 5px !important;
+    }
+
+    /* 2. Play/Pause Icon එකේ ප්‍රමාණය සහ margin සකස් කිරීම (අවශ්‍ය නම්) */
+    .plyr__controls .plyr__control svg {
+        width: 12px !important;
+        /* Icon size fix */
+        height: 12px !important;
+    }
+
+    /* 3. මැද ඇති Big Play Button එකේ ප්‍රමාණය අඩු කිරීම (Optional) */
+    .plyr__control--overlaid {
+        padding: 15px !important;
+        background: rgba(0, 200, 255, 0.8) !important;
+    }
+
+    .plyr__control--overlaid svg {
+        width: 30px !important;
+        height: 30px !important;
+    }
+}
+
+/* Optional: avoid aspect-ratio shrink for the new wrapper */
+.movie-detail-banner.video-mode #video-wrapper {
+    aspect-ratio: unset !important;
+    max-height: none !important;
+}
+
+/* When Watch Now clicked */
+.movie-detail-banner.video-mode {
+    display: block !important;
+    position: fixed !important;
+    /* Fixed to cover entire viewport */
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000 !important;
+    overflow: hidden !important;
+    z-index: 9999 !important;
+}
+
+/* Hide overlay & extra elements */
+.movie-detail-banner.video-mode .detail-overlay,
+.movie-detail-banner.video-mode .banner-content-wrapper {
+    /* මේක අලුතින් එකතු කරන්න */
+    display: none !important;
+}
+
+
+/* Video player wrapper should occupy entire banner */
+.video-player-wrapper {
+    position: absolute !important;
+    margin-top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #000 !important;
+    overflow: hidden !important;
+}
+
+/* Bunny or other iframe players full screen */
+.video-player-wrapper iframe {
+    position: absolute !important;
+    top: 0 !important;
+    /* ⭐️ FIX: -50px සිට 0 දක්වා වෙනස් කිරීම ⭐️ */
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    display: block !important;
+    object-fit: cover !important;
+}
+
+/* Optional: avoid aspect-ratio shrink for Bunny embed */
+.video-player-wrapper {
+    aspect-ratio: unset !important;
+    max-height: none !important;
+}
+
+/* ==================================================================
+// ==       NEW DESIGN FOR MOVIE DETAILS CONTENT                 ==
+// ================================================================== */
+
+/* Remove old meta-info styles if they conflict */
+.movie-detail-content .meta-info {
+    display: none;
+    /* Hide the old meta info */
+}
+
+/* New Grid Layout for Details */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--color-neon-blue);
+}
+
+.movie-detail-content h1 {
+    margin-top: -9%;
+}
+
+.detail-item span {
+    font-size: 0.8rem;
+    color: var(--color-silver);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.detail-item span i {
+    margin-right: 0.5rem;
+    color: var(--color-neon-blue);
+}
+
+.detail-item strong {
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Subtitle Provider Info Box */
+.subtitle-provider-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(43, 0, 64, 0.5);
+    /* Deep purple background */
+    border: 1px solid var(--color-purple);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 3%;
+    /* 2rem සිට 0 දක්වා වෙනස් කරන්න */
+    margin-bottom: 2.5rem;
+}
+
+/* "Watch Now" button එකට ස්ථිර ඉහළ ඉඩක් ලබා දීම */
+/* MODIFY THIS RULE */
+.movie-detail-content .cta-button {
+    margin-top: 0;
+    /* 2rem සිට 0 දක්වා වෙනස් කරන්න */
+}
+
+/* ADD THIS NEW RULE */
+/* ⭐ CSS SELECTOR එක නිවැරදි කිරීම ⭐ */
+.banner-info-column .description {
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+
+    text-align: justify;
+    /* දෙපැත්තම සමාන කිරීම */
+    text-justify: inter-word;
+    /* වචන අතර පරතරය හැදීම */
+    hyphens: auto;
+    /* දිග වචන ලස්සනට කඩන්න */
+    -webkit-hyphens: auto;
+    /* Safari/Chrome */
+    -ms-hyphens: auto;
+    /* Edge */
+}
+
+.subtitle-provider-info>i {
+    font-size: 2.5rem;
+    color: var(--color-neon-blue);
+}
+
+.subtitle-provider-info div span {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-silver);
+}
+
+.subtitle-provider-info div a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.subtitle-provider-info div a:hover {
+    color: var(--color-neon-blue);
+}
+
+.subtitle-provider-info div a i {
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+/* ==================================================================
+// ==       NO SUBTITLE INFO BOX STYLES (NEW)                    ==
+// ================================================================== */
+.no-subtitle-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    /* අඩු ආලෝකයක් සහිත background */
+    border: 1px solid #444;
+    /* අළු පැහැති border */
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+    /* provider box එකේ margin එකට සමාන කිරීම */
+    margin-bottom: 2.5rem;
+    /* provider box එකේ margin එකට සමාන කිරීම */
+}
+
+.no-subtitle-info>i {
+    font-size: 2rem;
+    /* icon එක මදක් කුඩා කිරීම */
+    color: #777;
+    /* අළු පැහැති icon */
+}
+
+.no-subtitle-info span {
+    font-size: 1rem;
+    color: var(--color-silver);
+    font-style: italic;
+    /* ඇල අකුරු */
+}
+
+/* ==================================================================
+// ==           CAST SECTION STYLES (NEW)                        ==
+// ================================================================== */
+.cast-section {
+    margin-top: 2.5rem;
+    /* Description එකට පසුව ඉඩක් */
+    margin-bottom: 2rem;
+    /* Subtitle box එකට පෙර ඉඩක් */
+}
+
+.cast-section h3 {
+    font-size: 1.5rem;
+    margin-top: 4%;
+    color: var(--color-white);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-purple);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+    /* Border එක text එකට සීමා කිරීමට */
+}
+
+.cast-grid {
+    display: grid;
+    /* තිරයේ ඉඩ අනුව columns ගණන වෙනස් වීම */
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 1.5rem;
+    /* Cards අතර පරතරය */
+}
+
+.actor-card {
+    text-align: center;
+}
+
+.actor-card img {
+    width: 80px;
+    /* රූපයේ පළල */
+    height: 80px;
+    /* රූපයේ උස */
+    border-radius: 50%;
+    /* රූපය රවුම් කිරීමට */
+    object-fit: cover;
+    /* රූපය කොටුවට fill වීම */
+    border: 2px solid var(--color-purple);
+    /* දම් පාට border එකක් */
+    margin-bottom: 0.5rem;
+    background-color: #222;
+    /* Image එක load වීමට පෙර background එක */
+}
+
+.actor-card p {
+    font-size: 0.85rem;
+    color: var(--color-silver);
+    font-weight: 500;
+    line-height: 1.3;
+    /* නම පේළි දෙකකට ගියොත් */
+}
+
+
+/* ==================================================================
+// ==       NEW 2-COLUMN BANNER LAYOUT (CREATIVE)                ==
+// ================================================================== */
+
+/* 1. Modify the main banner to align content */
+.movie-detail-banner {
+    display: flex;
+    align-items: stretch;
+    /* Vertically stretch columns */
+    /* align-items: center; ඉවත් කිරීම (පැරණි එක) */
+}
+
+/* 2. New 2-column grid wrapper */
+.banner-content-wrapper {
+    position: relative;
+    z-index: 2;
+    /* Overlay එකට උඩින් තැබීමට */
+    width: 100%;
+    display: grid;
+    /* 60% info / 40% image (Desktop) */
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2.5rem;
+    /* Columns අතර පරතරය */
+}
+
+/* 3. The Info Column (Left) */
+.banner-info-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* සිරස් අතට මැදට සකස් කිරීම */
+}
+
+/* 4. The Image Column (Right) */
+/* (This remains empty to show the background) */
+
+
+/* 5. Override max-width from style.css */
+/* style.css එකේ .movie-detail-content වලට 
+   max-width: 600px; කියා style එකක් ඇත. 
+   අපේ අලුත් layout එකේදී එය ඉවත් කළ යුතුයි.
+*/
+.banner-info-column .movie-detail-content {
+    max-width: none !important;
+    /* 600px සීමාව ඉවත් කිරීම */
+    width: 100%;
+}
+
+/* 6. Adjust margins for content moved inside */
+.banner-info-column .watch-buttons-container {
+    margin-top: 2rem;
+    /* Description එකට පසුව ඉඩක් */
+    margin-bottom: 2.5rem;
+    /* Cast එකට පෙර ඉඩක් */
+}
+
+.banner-info-column .cast-section {
+    margin-top: 0;
+    /* Buttons වලින් ඉඩ ලැබෙන නිසා */
+    margin-bottom: 2.5rem;
+}
+
+
+/* ==================================================================
+// ==           RESPONSIVE FOR NEW BANNER LAYOUT                 ==
+// ================================================================== */
+
+/* --- Medium Devices (Tablets - 992px and down) --- */
+@media (max-width: 992px) {
+    .movie-detail-banner {
+        /* Content එක උඩ සිට පෙන්වීම */
+        align-items: flex-start;
+    }
+
+    .banner-content-wrapper {
+        /* 2-column layout එක 1-column එකක් කිරීම */
+        grid-template-columns: 1fr;
+    }
+
+    .banner-image-column {
+        /* හිස් column එක mobile එකේදී සඟවා තැබීම */
+        display: none;
+    }
+
+    .banner-info-column {
+        /* මැදට align කිරීම ඉවත් කිරීම */
+        justify-content: flex-start;
+    }
+}
+
+/* ==================================================================
+// ==           TRAILER BUTTON STYLE (NEW)                       ==
+// ================================================================== */
+
+.cta-button-trailer {
+    background: transparent;
+    /* ⭐️ Watch buttons වගේ fill නොවීම */
+    border: 2px solid var(--color-neon-blue);
+    /* Outline එක පෙන්වීම */
+    color: var(--color-neon-blue);
+    /* Text එක neon blue කිරීම */
+    box-shadow: none;
+    /* Default glow එක ඉවත් කිරීම */
+}
+
+/* ⭐️ Hover කළ විට Watch button එකක් මෙන් හැසිරීම ⭐️ */
+.cta-button-trailer:hover {
+    background: var(--color-neon-blue);
+    color: var(--color-black);
+    /* Text එක කළු කිරීම */
+    box-shadow: 0 0 15px var(--color-neon-blue);
+    transform: translateY(-3px);
+}
+
+/* Icon එක සහ Text එක අතර ඉඩක් තැබීම (optional) */
+.cta-button-trailer i {
+    margin-right: 0.5rem;
+}
+
+
+/* ==================================================================
+// ==           MOVIE/SERIES DETAILS RESPONSIVE STYLES             ==
+// ================================================================== */
+
+/* --- Medium Devices (Tablets - 992px and down) --- */
+@media (max-width: 992px) {
+    .movie-detail-banner {
+        padding: 6rem 3%;
+        /* Padding අඩු කිරීම */
+        min-height: 70vh;
+    }
+
+    .movie-detail-content h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* --- Small Devices (Portrait Tablets, Large Phones - 768px and down) --- */
+@media (max-width: 768px) {
+
+    /* ⭐️ ප්‍රධාන FIXED STYLES Override කිරීම ⭐️ */
+    .movie-detail-banner.video-mode {
+        display: block !important;
+        /* Fixed position ඉවත් කර සාමාන්‍ය Flow එකට ගෙන ඒම */
+        position: static !important;
+
+        /* Full height සහ overflow hidden ඉවත් කිරීම */
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: auto !important;
+        /* Scroll කිරීමට ඉඩ ලබා දීම */
+
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: var(--color-dark-theme, #050505) !important;
+        /* z-index එක අවශ්‍ය නැත */
+        z-index: auto !important;
+    }
+
+    #video-wrapper {
+        position: relative !important;
+        width: 94% !important;
+        /* වම්/දකුණු ගැප් එක */
+        margin: 20px auto !important;
+        /* මැදට ගන්න */
+
+        background-color: #000;
+        border-radius: 15px !important;
+        /* ලස්සනට රවුම් වෙන්න */
+        overflow: hidden !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        /* අලුත් උස සකසන තැන */
+        height: auto !important;
+        max-width: none !important;
+    }
+
+    /* 2. Height Adjustment (Aspect Ratio) */
+    #video-wrapper::before {
+        content: '';
+        display: block;
+
+        /* මෙහි අගය වැඩි කරන තරමට Player එකේ උස (Height) වැඩි වේ.
+           56.25% = Standard 16:9 (YouTube size)
+           75%    = Taller (4:3) - ඔයාට ඕන සයිස් එක මේක වෙන්න ඇති
+           100%   = Square (1:1)
+        */
+        padding-top: 65%;
+        /* ⭐ මම 70% දැම්මා. උස මදිනම් මේක 80% කරන්න ⭐ */
+    }
+
+    /* 3. Video එක කොටුවට ෆිට් කිරීම */
+    #video-wrapper video,
+    #video-wrapper .plyr,
+    #video-wrapper .plyr__video-wrapper {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* ⭐ KEY FIX: වීඩියෝ එක ඇදෙන්නේ නැතුව, කොටුව පුරාම විහිදුවන්න ⭐ */
+    #video-wrapper video {
+        object-fit: cover !important;
+        /* මේකෙන් තමයි වීඩියෝ එක ලොකු වෙලා පේන්නේ */
+    }
+
+    /* Close Button */
+    .inner-close-btn {
+        top: 15px !important;
+        right: 15px !important;
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        z-index: 20;
+    }
+
+    /* Branding එකත් Center වීමට */
+    .player-branding-overlay {
+        left: 20px !important;
+        transform: none !important;
+        /* Player එක Center වූ විට, Branding එක Center කිරීමට */
+        top: 20px !important;
+    }
+
+    .movie-detail-banner {
+        padding: 5rem 5%;
+        /* Mobile වලදී padding වැඩි කිරීම */
+        min-height: 60vh;
+        align-items: flex-end;
+        /* Content එක පහළට ගැනීම (optional) */
+        background-position: top center;
+        /* Cover එකේ උඩ හරිය focus කිරීම */
+
+
+    }
+
+    .movie-carousel-section .movie-carousel .movie-card .movie-title {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        padding: 0.8rem 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .detail-overlay {
+        /* Mobile එකේදී gradient එක වෙනස් කිරීම */
+        background: linear-gradient(0deg, rgba(5, 5, 5, 1) 20%, rgba(5, 5, 5, 0.5) 80%);
+    }
+
+    .movie-detail-content h1 {
+        font-size: 1.8rem;
+        /* Mobile title size */
+    }
+
+    .details-grid {
+        /* Details items 2 ගානේ පෙන්වීම */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .description {
+        font-size: 0.9rem;
+        /* විස්තරය කුඩා කිරීම */
+        line-height: 1.6;
+    }
+
+    .cast-section h3 {
+        font-size: 1.3rem;
+    }
+
+    .cast-grid {
+        /* නළුවන්ගේ card size එකට ගැලපෙන ලෙස අඩුම පළල සකස් කිරීම */
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 1rem;
+    }
+
+    .actor-card img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .actor-card p {
+        font-size: 0.75rem;
+    }
+
+    .movie-card .movie-title {
+        /* Ensure these styles apply on smaller screens */
+        width: 100%;
+        /* Take full card width */
+        white-space: nowrap;
+        /* Prevent wrapping */
+        overflow: hidden;
+        /* Hide overflow */
+        text-overflow: ellipsis;
+        /* Add ellipsis (...) */
+        display: block;
+        /* Ensure block behavior */
+        padding: 0.8rem 0.5rem;
+        /* Adjust padding if needed */
+        font-size: 0.9rem;
+        /* Mobile title size */
+    }
+}
+
+/* --- Extra Small Devices (Phones - 576px and down) --- */
+@media (max-width: 576px) {
+    .movie-detail-banner {
+        padding: 4rem 5% 2rem 5%;
+        /* Padding තවත් සකස් කිරීම */
+        min-height: 50vh;
+    }
+
+    .movie-detail-content h1 {
+        font-size: 1.6rem;
+    }
+
+    .details-grid {
+        /* Details items එක ගානේ පෙන්වීම (stack) */
+        grid-template-columns: 1fr;
+    }
+
+    .subtitle-provider-info,
+    .no-subtitle-info {
+        padding: 0.8rem;
+        gap: 0.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .subtitle-provider-info>i,
+    .no-subtitle-info>i {
+        font-size: 1.8rem;
+    }
+
+    .subtitle-provider-info div span {
+        font-size: 0.8rem;
+    }
+
+
+
+    .subtitle-provider-info div a {
+        font-size: 1rem;
+    }
+
+    .no-subtitle-info span {
+        font-size: 0.9rem;
+    }
+
+    .cast-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 0.8rem;
+    }
+
+    .actor-card img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .actor-card p {
+        font-size: 0.7rem;
+    }
+
+    .movie-card .movie-title {
+        /* Re-apply styles for extra small screens if needed */
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        padding: 0.7rem 0.4rem;
+        /* Slightly smaller padding */
+        font-size: 0.8rem;
+        /* Smaller font size */
+    }
+
+    .cta-button-trailer {
+        margin-top: 2%;
+    }
+
+
+}
+
+/* ============================================================
+   NEW INNER CLOSE BUTTON (MOBILE FRIENDLY)
+   ============================================================ */
+
+/* 1. පරණ එළියේ තිබ්බ Button එක Video Mode එකේදී හංගන්න */
+
+body.player-active {
+    overflow: hidden !important;
+}
+
+
+/* 2. Wrapper එකට relative position දෙන්න (Button එක මේකට කොටු කරන්න) */
+#video-wrapper {
+    position: relative !important;
+    /* මේක අනිවාර්යයි */
+}
+
+/* 3. අලුත් Button එකේ Design එක */
+.inner-close-btn {
+    position: absolute;
+    top: 25px;
+    /* Button එක ටිකක් පහළට ගත්තා */
+    right: 25px;
+    z-index: 2147483640;
+    /* Max Safe Integer Z-Index */
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.7);
+    /* Background එක තව ටිකක් dark කළා */
+    border: 2px solid #ef5350;
+    /* Red Border */
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.inner-close-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Mobile වලදී Button එක තව ටිකක් ඇතුලට ගන්න (Video එක screen එකෙන් එළියට පනින එක වලක්වන්න) */
+@media (max-width: 768px) {
+    .inner-close-btn {
+        top: -12px;
+        right: -10px;
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    body.player-active {
+        overflow: auto !important;
+    }
+}
+
+/* ============================================================
+   USER GUIDE MODAL STYLES
+   ============================================================ */
+.guide-overlay {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    /* හැමදේටම උඩින් */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.guide-box {
+    background: #151515;
+    border: 2px solid var(--color-purple);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.2);
+}
+
+.guide-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* TABS */
+.guide-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+.guide-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 10px;
+    color: #888;
+    font-size: 1rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: 0.3s;
+}
+
+.guide-tab.active {
+    color: var(--color-neon-blue);
+    border-bottom-color: var(--color-neon-blue);
+    font-weight: bold;
+}
+
+/* CONTENT STEPS */
+.guide-content {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.guide-content.active {
+    display: flex;
+    animation: slideUp 0.3s ease;
+}
+
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(43, 0, 64, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-neon-blue);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.step-text h4 {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.step-text p {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.step-line {
+    width: 2px;
+    height: 20px;
+    background: #333;
+    margin-left: 20px;
+    /* Aligns with icon center */
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Now Playing Bar (Separate Design) --- */
+.now-playing-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    /* Player එකට උඩින් පේන්න */
+    background: rgba(0, 0, 0, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    /* වීදුරු වගේ පෙනුම */
+    padding: 10px 0;
+    animation: slideUp 0.5s ease-out;
+}
+
+.now-playing-bar .np-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.np-label {
+    color: #aaa;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.np-title {
+    color: var(--color-neon-blue);
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Play Icon Animation */
+.blink-icon {
+    color: #00c853;
+    font-size: 1.2rem;
+    animation: pulseIcon 2s infinite;
+}
+
+@keyframes pulseIcon {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* =========================================
+           1. DESKTOP HIDE (PC එකේදී පෙන්වන්න එපා)
+           ========================================= */
+@media screen and (min-width: 769px) {
+
+    .now-playing-bar,
+    #now-playing-bar {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+}
+
+/* =========================================
+           2. MOBILE & APP FIXES (Phone එකේදී පෙන්වන්න)
+           ========================================= */
+@media (max-width: 768px) {
+    .now-playing-bar {
+        padding: 8px 0 !important;
+        /* Mobile එකේදී අනිවාර්යයෙන් පෙන්වන්න ඕන නිසා display block එක enforce කරනවා JS active කළාම */
+    }
+
+    .np-label {
+        display: none !important;
+        /* ඉඩ මදි නිසා "Now Playing" වචනය හංගනවා */
+    }
+
+    /* App එකේ Video Mode එකේදී Bar එකේ Position එක */
+    #movie-banner.video-mode .now-playing-bar {
+        position: absolute !important;
+        bottom: 0 !important;
+        z-index: 2147483647 !important;
+    }
+}
+
+/* ============================================================
+   CLOSE BUTTON INSIDE PLAYER (RIGHT CORNER)
+   ============================================================ */
+
+/* 1. Video Wrapper එක Relative Position එකක් තියෙනවද verify කරන්න */
+#video-wrapper {
+    position: relative !important;
+}
+
+/* 2. Close Button Styles - Player එකේ ඇතුලෙ Right Corner එකට */
+.inner-close-btn,
+#player-close-btn {
+    /* Position */
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    
+    /* Display */
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    
+    /* Size */
+    width: 45px;
+    height: 45px;
+    
+    /* Style */
+    background: rgba(229, 9, 20, 0.95) !important; /* Netflix-style red */
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: white !important;
+    font-size: 1.4rem;
+    
+    /* Interaction */
+    cursor: pointer;
+    z-index: 2147483647 !important; /* Max z-index - Player controls වලට උඩින් */
+    
+    /* Effects */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.inner-close-btn:hover,
+#player-close-btn:hover {
+    background: rgba(255, 0, 0, 1) !important;
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.5);
+}
+
+/* Active/Click Effect */
+.inner-close-btn:active,
+#player-close-btn:active {
+    transform: scale(0.95);
+}
+
+/* ============================================================
+   FULLSCREEN MODE වලදී CLOSE BUTTON
+   ============================================================ */
+
+/* Plyr Fullscreen Mode එකේදී */
+.plyr--fullscreen .inner-close-btn,
+.plyr--fullscreen #player-close-btn {
+    position: fixed !important; /* Viewport එකට relative */
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 2147483647 !important;
+}
+
+/* Browser Native Fullscreen Mode එකේදී */
+:fullscreen .inner-close-btn,
+:fullscreen #player-close-btn {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 2147483647 !important;
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE STYLES
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* Mobile එකේදී Button Size එක අඩු කරන්න */
+    .inner-close-btn,
+    #player-close-btn {
+        top: 10px !important;
+        right: 10px !important;
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+    
+    /* Mobile Fullscreen Mode */
+    .plyr--fullscreen .inner-close-btn,
+    .plyr--fullscreen #player-close-btn,
+    :fullscreen .inner-close-btn,
+    :fullscreen #player-close-btn {
+        top: 15px !important;
+        right: 15px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Extra Small Devices */
+    .inner-close-btn,
+    #player-close-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+        top: 8px !important;
+        right: 8px !important;
+    }
+}
+
+/* ============================================================
+   ENSURE BUTTON STAYS VISIBLE (Override conflicts)
+   ============================================================ */
+
+/* Video Mode එකේදී Button එක show කරන්න */
+.movie-detail-banner.video-mode .inner-close-btn,
+.movie-detail-banner.video-mode #player-close-btn {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Player Wrapper එකේ Overflow එක visible කරන්න */
+#video-wrapper {
+    overflow: visible !important;
+}
+
+/* Banner එකේ Overflow එකත් visible කරන්න */
+.movie-detail-banner.video-mode {
+    overflow: visible !important;
+}
+
+/* ============================================================
+   FIX HEADER SHOWING ABOVE PLAYER (Browser Resize Issue)
+   ============================================================ */
+
+/* Video Mode එකේදී Header එක Hide කරන්න */
+body.player-active .main-header,
+body.player-active header {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+}
+
+/* Video Mode එකේදී Banner එකට Full Screen Styles Force කරන්න */
+.movie-detail-banner.video-mode {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 999999 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Ensure Video Wrapper Takes Full Space */
+.movie-detail-banner.video-mode #video-wrapper {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+}
+
+/* ============================================================
+   RESPONSIVE PLAYER - AUTO ADJUST TO SCREEN SIZE
+   ============================================================ */
+
+/* Video Player Auto Fit - Contain Mode */
+.movie-detail-banner.video-mode #video-wrapper video,
+.movie-detail-banner.video-mode #video-wrapper .plyr,
+.movie-detail-banner.video-mode #video-wrapper .plyr__video-wrapper {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important; /* Video එක crop නොවී පෙන්වනවා */
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+}
+
+/* Plyr Container Responsive */
+.movie-detail-banner.video-mode .plyr {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Video Element Responsive Sizing */
+.movie-detail-banner.video-mode video {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Maintain Aspect Ratio on Resize */
+@media (max-width: 1200px) {
+    .movie-detail-banner.video-mode #video-wrapper {
+        padding: 0 !important;
+    }
+}
+
+/* Tablet Responsive */
+@media (max-width: 992px) {
+    .movie-detail-banner.video-mode #video-wrapper video {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* Mobile Responsive - Special Handling */
+@media (max-width: 768px) {
+    /* Mobile එකේදී Player එක Centered */
+    .movie-detail-banner.video-mode {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .movie-detail-banner.video-mode #video-wrapper {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100vw !important;
+        padding: 0 10px !important;
+    }
+    
+    /* Video aspect ratio maintain කරන්න */
+    .movie-detail-banner.video-mode #video-wrapper::before {
+        content: '';
+        display: block;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    }
+    
+    .movie-detail-banner.video-mode #video-wrapper video,
+    .movie-detail-banner.video-mode #video-wrapper .plyr {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    
+    /* ⭐ NOW PLAYING BAR - Mobile එකේදී පෙන්වන්න */
+    .now-playing-bar,
+    #now-playing-bar {
+        display: none !important; /* Default එකේදී hide */
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 2147483646 !important; /* Close button එකට යටින් */
+        background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.95) 30%) !important;
+        backdrop-filter: blur(10px) !important;
+        border-top: 2px solid var(--color-neon-blue, #00c8ff) !important;
+        padding: 12px 15px !important;
+        animation: slideUpBar 0.4s ease-out !important;
+    }
+    
+    /* ⭐ Player Open කරාම විතරක් පෙන්වන්න */
+    .movie-detail-banner.video-mode .now-playing-bar,
+    .movie-detail-banner.video-mode #now-playing-bar {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* Now Playing Bar Content Styles */
+    .now-playing-bar .np-content {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        color: #fff !important;
+        font-family: 'Poppins', sans-serif !important;
+    }
+    
+    /* Play Icon Animation */
+    .now-playing-bar .blink-icon {
+        color: #00c853 !important;
+        font-size: 1.3rem !important;
+        animation: pulseIcon 2s infinite !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* "Now Playing" Label */
+    .now-playing-bar .np-label {
+        display: none !important; /* Mobile එකේ hide කරන්න space save කරන්න */
+    }
+    
+    /* Movie/Episode Title */
+    .now-playing-bar .np-title {
+        color: var(--color-neon-blue, #00c8ff) !important;
+        font-size: 0.95rem !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        flex: 1 !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.8) !important;
+    }
+    
+    /* Slide Up Animation */
+    @keyframes slideUpBar {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    /* Pulse Animation for Icon */
+    @keyframes pulseIcon {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1.15);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    /* Banner එකේදී Now Playing Bar show කරන්න */
+    .movie-detail-banner.video-mode .now-playing-bar {
+        display: flex !important;
+    }
+}
+
+/* ⭐ DESKTOP එකේදී NOW PLAYING BAR HIDE කරන්න */
+@media (min-width: 769px) {
+    .now-playing-bar,
+    #now-playing-bar {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+}
+
+/* ============================================================
+   HIDE BOTTOM MOVIE NAME BAR BY DEFAULT
+   ============================================================ */
+
+/* Default state - Bottom bar hidden */
+.now-playing-bar,
+#now-playing-bar {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* ⭐ Player Open කරාම විතරක් Mobile එකේදී show කරන්න */
+/* Mobile වලදී Now Playing Bar Fixed Position Force කරන්න */
+@media (max-width: 768px) {
+    /* ⭐ Bar එක scroll වුනාමත් bottom එකේ fix වෙලා තියෙන්න */
+    .movie-detail-banner.video-mode .now-playing-bar,
+    .movie-detail-banner.video-mode #now-playing-bar {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: fixed !important; /* ⭐ Always fixed */
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        z-index: 2147483646 !important;
+    }
+    
+    /* ⭐ Body එකේ player-active class තියෙද්දී bar එක show කරන්න */
+    body.player-active .now-playing-bar,
+    body.player-active #now-playing-bar {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: fixed !important;
+        bottom: 0 !important;
+    }
+    body.player-active .movie-detail-banner.video-mode {
+        position: relative !important;
+        
+        /* ⭐ Vertical Center Logic ⭐ */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; 
+        align-items: center !important;
+        
+        /* 100dvh මගින් Address bar එක ගැන නොසිතා Screen එකේ පෙනෙන කොටස පමණක් ගනී */
+        min-height: 100vh !important; 
+        min-height: 100dvh !important; 
+        
+        height: auto !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+
+    body.player-active #video-wrapper {
+        position: relative !important;
+        width: 100% !important;        /* පළල සම්පූර්ණයෙන්ම */
+        max-width: 100vw !important;
+        margin: 0 !important;          /* Margin අයින් කරන්න (Flexbox එකෙන් Center වෙන නිසා) */
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
+        box-shadow: none !important;   /* Mobile වලදී Shadow එක අනවශ්‍ය නම් */
+    }
+    
+    /* ⭐ Plyr fullscreen state එකේදීත් bar එක visible */
+    .plyr--fullscreen ~ .now-playing-bar,
+    .plyr--fullscreen ~ #now-playing-bar {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Hide Other Content in Video Mode */
+.movie-detail-banner.video-mode .detail-overlay,
+.movie-detail-banner.video-mode .banner-content-wrapper,
+.movie-detail-banner.video-mode .banner-info-column,
+.movie-detail-banner.video-mode .banner-image-column {
+    display: none !important;
+}

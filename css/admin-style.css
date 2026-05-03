@@ -1,0 +1,1688 @@
+/* --- Global Admin Styles --- */
+:root {
+    --color-black: #050505;
+    --color-dark-grey: #1a1a1d;
+    --color-purple: #2b0040;
+    --color-neon-blue: #00c8ff;
+    --color-silver: #c0c0c0;
+    --color-white: #ffffff;
+    --font-main: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-black);
+    color: var(--color-silver);
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--color-white);
+}
+
+/* --- Main Layout --- */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #111;
+    flex-shrink: 0;
+    border-right: 1px solid var(--color-purple);
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h3 {
+    color: var(--color-neon-blue);
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.sidebar-nav .nav-item a {
+    display: block;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-nav .nav-item a i {
+    margin-right: 1rem;
+    width: 20px;
+}
+
+.sidebar-nav .nav-item:hover a {
+    background-color: var(--color-purple);
+}
+
+.sidebar-nav .nav-item.active a {
+    background-color: var(--color-neon-blue);
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+.admin-content {
+    flex-grow: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* --- Page Management --- */
+.admin-page {
+    display: none;
+}
+
+.admin-page.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* --- Dashboard Specifics --- */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    color: var(--color-neon-blue);
+}
+
+.stat-card h2 {
+    font-size: 2rem;
+}
+
+.stat-card p {
+    font-size: 0.9rem;
+    color: var(--color-silver);
+}
+
+.stat-card.clickable {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card.clickable:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 200, 255, 0.3);
+}
+
+.charts-container {
+    margin-top: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.chart-box {
+    position: relative;
+    /* Necessary for Chart.js responsiveness */
+    height: 400px;
+    /* ඔබට අවශ්‍ය උස මෙතන දෙන්න (e.g., 400px, 50vh) */
+    width: 100%;
+}
+
+/* Ensure canvas takes the size of its container */
+#overviewChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* --- Data Tables --- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    padding: 0.6rem 1.2rem;
+    background: var(--color-purple);
+    color: var(--color-white);
+    border: 1px solid var(--color-neon-blue);
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background: var(--color-neon-blue);
+    color: var(--color-black);
+}
+
+.data-table-container {
+    background: var(--color-dark-grey);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+#actors-table td img {
+    height: 60px;
+    /* Adjust height as needed */
+    width: 60px;
+    /* Make it square */
+    object-fit: cover;
+    /* Crop image to fit */
+    border-radius: 50%;
+    /* Make it circular */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: left;
+}
+
+thead {
+    background-color: #222;
+}
+
+tbody tr {
+    border-bottom: 1px solid #333;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #2a2a2d;
+}
+
+td img {
+    height: 50px;
+    border-radius: 5px;
+}
+
+.action-btn {
+    background: none;
+    border: 1px solid;
+    color: var(--color-silver);
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    width: 35px;
+}
+
+.action-btn.edit {
+    border-color: #29b6f6;
+    color: #29b6f6;
+}
+
+.action-btn.delete {
+    border-color: #ef5350;
+    color: #ef5350;
+}
+
+.action-btn.block {
+    border-color: #ffa726;
+    color: #ffa726;
+}
+
+.status {
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.status.active {
+    background-color: #00c853;
+    color: white;
+}
+
+.status.inactive {
+    background-color: #ef5350;
+    color: white;
+}
+
+
+/* --- Modal Styles --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+.modal-content {
+    background: var(--color-dark-grey);
+    padding: 2.5rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    border: 1px solid var(--color-purple);
+    margin-bottom: auto;
+}
+
+.modal-content.small-modal {
+    max-width: 500px;
+    /* Make this modal narrower */
+}
+
+#revenue-lookup-result h3 {
+    /* Style for the result title */
+    color: var(--color-white);
+    margin-bottom: 0.5rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: var(--color-neon-blue);
+}
+
+.modal-content h2 {
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--color-white);
+}
+
+.input-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--color-white);
+    font-family: var(--font-main);
+    resize: vertical;
+    min-height: 80px;
+}
+
+.input-group input[type="file"] {
+    width: 100%;
+    padding: 0.5rem;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--color-silver);
+}
+
+
+.input-group input[type="file"]::file-selector-button {
+    background: var(--color-purple);
+    color: var(--color-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: background-color 0.3s;
+}
+
+.input-group input[type="file"]::file-selector-button:hover {
+    background-color: var(--color-neon-blue);
+    color: var(--color-black);
+}
+
+/* --- Custom Styles for Select Dropdowns --- */
+.input-group select {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--color-white);
+    font-family: var(--font-main);
+    font-size: 16px;
+
+    /* For custom dropdown arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23c0c0c0%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-size: 1.2rem;
+}
+
+/* Style for the placeholder option */
+.input-group select:invalid {
+    color: #888;
+}
+
+/* --- Custom Alert Modal Styles --- */
+#custom-modal-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+#custom-modal-box {
+    background: var(--color-dark-grey);
+    padding: 2rem 2.5rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    border-top: 5px solid;
+    /* Will be colored by JS */
+    transform: scale(0.9);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#custom-modal-box.success {
+    border-top-color: #00c853;
+}
+
+#custom-modal-box.error {
+    border-top-color: #ef5350;
+}
+
+#modal-title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+#modal-message {
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+#modal-close-btn {
+    padding: 0.8rem 2.5rem;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+#custom-modal-box.success #modal-close-btn {
+    background-color: #00c853;
+}
+
+#custom-modal-box.error #modal-close-btn {
+    background-color: #ef5350;
+}
+
+/* --- Pagination Styles --- */
+#pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+}
+
+.pagination-btn {
+    background-color: var(--color-dark-grey);
+    color: var(--color-silver);
+    border: 1px solid var(--color-purple);
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-btn:hover {
+    background-color: var(--color-purple);
+    color: var(--color-white);
+}
+
+.pagination-btn.active {
+    background-color: var(--color-neon-blue);
+    color: var(--color-black);
+    border-color: var(--color-neon-blue);
+    cursor: default;
+}
+
+/* Make action buttons in table more distinct */
+.action-btn.edit:hover {
+    background-color: #29b6f6;
+    color: white;
+}
+
+.action-btn.delete:hover {
+    background-color: #ef5350;
+    color: white;
+}
+
+/* --- Styles for Image Preview in Modal --- */
+.image-preview-container {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #222;
+    border: 1px dashed #555;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-preview-container img {
+    max-height: 150px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 4px;
+}
+
+.input-group small {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+}
+
+/* --- Styles for Header Actions (Search Bar) --- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* Allows items to wrap on smaller screens */
+    gap: 1rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#movie-search-input,
+#user-search-input,
+#tv-series-search-input,
+#actor-search-input {
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #333;
+    color: var(--color-white);
+    font-size: 1rem;
+    width: 250px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#movie-search-input:focus,
+#user-search-input:focus,
+#tv-series-search-input:focus {
+    outline: none;
+    border-color: var(--color-neon-blue);
+    box-shadow: 0 0 10px rgba(0, 200, 255, 0.3);
+}
+
+
+/* --- Styles for Header Actions (Search Bar) --- */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#movie-search-input {
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #333;
+    color: var(--color-white);
+    font-size: 1rem;
+    width: 250px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#movie-search-input:focus {
+    outline: none;
+    border-color: var(--color-neon-blue);
+    box-shadow: 0 0 10px rgba(0, 200, 255, 0.3);
+}
+
+.status.trial-active {
+    background-color: #ffa726;
+    /* Orange color */
+    color: white;
+}
+
+/* --- Styles for User Search Dropdown in Modal --- */
+.user-search-container {
+    position: relative;
+    /* This is crucial for positioning the results */
+}
+
+.user-search-results-list {
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    /* Position it right below the input group */
+    left: 0;
+    right: 0;
+    background-color: #333;
+    border: 1px solid #555;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.user-search-item {
+    padding: 0.8rem;
+    color: var(--color-silver);
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+}
+
+.user-search-item:last-child {
+    border-bottom: none;
+}
+
+.user-search-item:hover {
+    background-color: var(--color-purple);
+    color: var(--color-white);
+}
+
+.user-search-item small {
+    color: var(--color-neon-blue);
+    display: block;
+    /* Show name on a new line */
+    font-size: 0.8rem;
+}
+
+/* --- Style for new "View History" Action Button --- */
+.action-btn.view {
+    border-color: #00c8ff;
+    color: #00c8ff;
+}
+
+.action-btn.view:hover {
+    background-color: #00c8ff;
+    color: #000;
+}
+
+/* --- Styles for User History Modal --- */
+#user-history-modal .modal-content {
+    max-width: 800px;
+    /* Make it wider */
+}
+
+#user-history-modal h3 {
+    color: var(--color-neon-blue);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-purple);
+    padding-bottom: 0.5rem;
+}
+
+.history-table-wrapper {
+    max-height: 250px;
+    overflow-y: auto;
+    background: var(--color-black);
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.history-table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table-wrapper th,
+.history-table-wrapper td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.history-table-wrapper th {
+    background-color: #222;
+    position: sticky;
+    top: 0;
+    /* Make header sticky when scrolling */
+}
+
+.history-table-wrapper tr:last-child td {
+    border-bottom: none;
+}
+
+.slip-link {
+    color: var(--color-neon-blue);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.slip-link:hover {
+    color: var(--color-white);
+}
+
+.no-history {
+    color: #888;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* --- Styles for Slip Preview Modal --- */
+.preview-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    /* Must be on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+#preview-image {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 5px;
+    border: 2px solid var(--color-neon-blue);
+}
+
+.close-preview-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-preview-btn:hover {
+    color: var(--color-neon-blue);
+}
+
+/* --- Styles for TV Series Modal - Season & Episode Management --- */
+.season-management-section {
+    background-color: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.season-management-section label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+#season-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.season-card {
+    background: #111;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.season-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.season-header .season-select {
+    flex: 1;
+    padding: 0.8rem;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 600;
+
+    /* Custom dropdown arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23c0c0c0%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-size: 1.2rem;
+}
+
+.remove-season-btn {
+    background-color: #ef5350;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 35px;
+    height: 35px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    transition: background-color 0.3s;
+}
+
+.remove-season-btn:hover {
+    background-color: #d32f2f;
+}
+
+.episode-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    /* Indent episodes */
+    border-left: 2px solid var(--color-purple);
+}
+
+.episode-card {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    background: #1a1a1d;
+    padding: 0.8rem;
+    border-radius: 5px;
+}
+
+.episode-inputs-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.episode-card input,
+.episode-card select {
+    /* Added select here */
+    width: 100%;
+    padding: 0.6rem;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--color-white);
+    font-size: 0.9rem;
+}
+
+.episode-card input::placeholder {
+    color: #888;
+}
+
+.remove-episode-btn {
+    background-color: #ef5350;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex-shrink: 0;
+}
+
+.remove-episode-btn:hover {
+    background-color: #d32f2f;
+}
+
+.cta-button.small-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* --- Fix for Browser Autofill Background --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+    /* Text එකේ පාට, අපේ theme එකේ සුදු පාටට සකස් කිරීම */
+    -webkit-text-fill-color: var(--color-white) !important;
+
+    /* Background එක, අපේ theme එකේ input background පාටට සකස් කිරීම */
+    /* (ඔබේ .input-group input වල background එක #333) */
+    box-shadow: 0 0 0 30px #333 inset !important;
+
+    /* Browser එකේ default transition එක නැවැත්වීම */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* --- Styles for Messages & Requests Page --- */
+#messages-requests-page h2 {
+    color: var(--color-white);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    /* Add space between sections */
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+#messages-requests-page h2 i {
+    color: var(--color-neon-blue);
+}
+
+.messages-requests-table td:nth-child(3) {
+    /* Message content column */
+    max-width: 400px;
+    /* Limit width */
+    white-space: normal;
+    /* Allow wrapping */
+}
+
+/* --- Styles for Actor Selection Section in Modals --- */
+.actor-selection-section {
+    background-color: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.actor-selection-section>label {
+    /* Main label for the section */
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.actor-search-wrapper {
+    position: relative;
+    /* For positioning the results dropdown */
+    margin-bottom: 1rem;
+}
+
+.actor-search-input {
+    width: 100%;
+    padding: 0.8rem;
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: var(--color-white);
+}
+
+.actor-search-results {
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    border: 1px solid #555;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    z-index: 10;
+    /* Above other content in modal */
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.actor-result-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    border-bottom: 1px solid #444;
+}
+
+.actor-result-item:last-child {
+    border-bottom: none;
+}
+
+.actor-result-item:hover {
+    background-color: var(--color-purple);
+}
+
+.actor-result-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 0.8rem;
+}
+
+.actor-result-item span {
+    color: var(--color-silver);
+}
+
+.actor-result-item:hover span {
+    color: var(--color-white);
+}
+
+.selected-actors-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow items to wrap */
+    gap: 0.8rem;
+    padding: 0.5rem;
+    background-color: #111;
+    /* Darker background for selected items */
+    border-radius: 5px;
+    min-height: 50px;
+    /* Ensure it has some height even when empty */
+    margin-bottom: 0.5rem;
+}
+
+.selected-actor-tag {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-purple);
+    color: var(--color-white);
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    /* Pill shape */
+    font-size: 0.9rem;
+}
+
+.selected-actor-tag img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.remove-actor-btn {
+    background: none;
+    border: none;
+    color: var(--color-neon-blue);
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.remove-actor-btn:hover {
+    color: #fff;
+}
+
+.actor-count-message {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.actor-count-message.error {
+    color: #ef5350;
+    /* Red color for error */
+    font-weight: bold;
+}
+
+/* --- Styles for Dashboard Sections --- */
+.dashboard-section {
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+}
+
+.dashboard-section h2 {
+    color: var(--color-white);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 1px solid var(--color-purple);
+    padding-bottom: 0.8rem;
+}
+
+.dashboard-section h2 i {
+    color: var(--color-neon-blue);
+}
+
+/* --- Styles for Top Favorites Grid --- */
+.top-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Responsive grid */
+    gap: 1rem;
+}
+
+.favorite-item-card {
+    background-color: var(--color-dark-grey);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #333;
+    transition: background-color 0.3s ease;
+}
+
+.favorite-item-card:hover {
+    background-color: #2a2a2d;
+}
+
+.favorite-item-card img {
+    width: 50px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.favorite-item-info {
+    overflow: hidden;
+    /* Prevent text overflow */
+}
+
+.favorite-item-info h3 {
+    font-size: 1rem;
+    color: var(--color-white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.2rem;
+}
+
+.favorite-item-info p {
+    font-size: 0.85rem;
+    color: var(--color-silver);
+    margin-bottom: 0.4rem;
+}
+
+.favorite-item-info .fav-count {
+    font-weight: 600;
+    color: var(--color-neon-blue);
+}
+
+.favorite-item-info .fav-count i {
+    margin-right: 4px;
+}
+
+.loading-placeholder,
+.no-items-placeholder {
+    color: var(--color-silver);
+    text-align: center;
+    padding: 1rem;
+    grid-column: 1 / -1;
+    /* Span full width */
+}
+
+/* ================================================================== */
+/* ==                  RESPONSIVE DESIGN STYLES                  == */
+/* ================================================================== */
+
+/* --- Hamburger Menu Button --- */
+.sidebar-toggle-btn {
+    display: none;
+    /* Hidden on desktop */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    /* Above sidebar overlay */
+    background: var(--color-purple);
+    color: var(--color-white);
+    border: 1px solid var(--color-neon-blue);
+    border-radius: 5px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: var(--color-neon-blue);
+    color: var(--color-black);
+}
+
+/* This makes the container relative for positioning */
+.subtitle-inputs-grid .input-group,
+.actor-search-wrapper {
+    position: relative;
+}
+
+/* This styles the dropdown */
+.actor-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #2c3e50;
+    /* (ඔබේ theme එකට අනුව මෙය වෙනස් විය හැක) */
+    border: 1px solid #555;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+}
+
+/* --- Media Query for Tablets and Smaller (e.g., max-width: 992px) --- */
+@media (max-width: 992px) {
+    .admin-container {
+        flex-direction: column;
+        /* Stack sidebar and content (conceptually) */
+    }
+
+    .sidebar {
+        position: fixed;
+        /* Take sidebar out of flow */
+        left: -260px;
+        /* Hide it off-screen */
+        top: 0;
+        height: 100vh;
+        z-index: 1050;
+        /* Below toggle button, above content overlay */
+        transition: left 0.3s ease-in-out;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar.open {
+        left: 0;
+        /* Slide in */
+    }
+
+    /* Overlay for content when sidebar is open */
+    .content-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 1040;
+        /* Below sidebar */
+    }
+
+    .content-overlay.active {
+        display: block;
+    }
+
+
+    .admin-content {
+        padding-top: 70px;
+        /* (FIX) Add padding to push content below fixed toggle button */
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 2rem;
+        margin-left: 0;
+        transition: filter 0.3s ease;
+    }
+
+    /* (FIX) Center the main heading within each page */
+    .admin-page>h1,
+    /* For Dashboard */
+    .page-header>h1
+
+    /* For other pages */
+        {
+        width: 100%;
+        /* Ensure h1 takes full width to center text */
+        text-align: center;
+        margin-bottom: 1rem;
+        /* Add some space below heading */
+    }
+
+    /* Blur content when sidebar is open */
+    body.sidebar-open .admin-content {
+        filter: blur(3px);
+        pointer-events: none;
+        /* Prevent interaction with content */
+    }
+
+    .sidebar-toggle-btn {
+        display: block;
+        /* Show hamburger button */
+    }
+
+    /* (FIX) Adjust page header for centering */
+    .page-header {
+        flex-direction: column;
+        align-items: center;
+        /* Center items (h1, header-actions) */
+        gap: 1.5rem;
+        /* Adjust gap as needed */
+    }
+
+    .header-actions {
+        width: 100%;
+        /* Make actions take full width */
+        flex-wrap: wrap;
+        /* Allow search and button to wrap */
+    }
+
+    .header-actions input[type="search"] {
+        flex-grow: 1;
+        /* Allow search bar to grow */
+        min-width: 200px;
+        /* Ensure minimum width */
+    }
+
+    /* Dashboard Stat Cards */
+    .stats-cards {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* Allow smaller cards */
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .stat-card i {
+        font-size: 2rem;
+    }
+
+    .stat-card h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Tables */
+    .data-table-container {
+        overflow-x: auto;
+        /* Ensure horizontal scrolling is enabled */
+    }
+
+    th,
+    td {
+        white-space: nowrap;
+        /* Prevent text wrapping inside cells */
+        padding: 0.8rem;
+        /* Slightly reduce padding */
+    }
+
+    /* Modals */
+    .modal-content {
+        width: 95%;
+        /* Use slightly more width */
+        padding: 1.5rem;
+    }
+
+    .modal-content.small-modal {
+        max-width: 95%;
+    }
+
+    #user-history-modal .modal-content {
+        max-width: 95%;
+        /* Adjust history modal too */
+    }
+
+    /* Top Favorites */
+    .top-items-grid {
+        grid-template-columns: 1fr;
+        /* Stack items on mobile */
+    }
+
+    .favorite-item-card {
+        gap: 0.8rem;
+    }
+}
+
+/* --- Media Query for Small Mobile Phones (e.g., max-width: 576px) --- */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Reduce main heading size */
+    .sidebar-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    /* Stack icon and text */
+    .stat-card i {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-content {
+        padding: 1rem;
+    }
+
+    .close-btn {
+        top: 0.5rem;
+        right: 1rem;
+        font-size: 1.8rem;
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .cta-button,
+    .action-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .action-btn {
+        width: 30px;
+        margin-right: 0.3rem;
+    }
+
+    /* Make action buttons smaller */
+    th,
+    td {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .dashboard-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .favorite-item-card {
+        padding: 0.8rem;
+    }
+
+    .favorite-item-info h3 {
+        font-size: 0.9rem;
+    }
+
+    .favorite-item-info p {
+        font-size: 0.8rem;
+    }
+
+    .cta-button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* Keep cta-button style separate */
+    .action-btn {
+        width: 30px;
+        height: 30px;
+        /* (FIX) Set height same as width */
+        margin-right: 0.3rem;
+        font-size: 0.9rem;
+        /* Keep font size if needed */
+        padding: 0;
+        /* (FIX) Remove padding to allow centering */
+
+        /* --- (FIX) Re-apply centering for mobile size --- */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        /* --- End Fix --- */
+    }
+}
+
+/* --- Styles for Subtitle Upload Section --- */
+.subtitle-upload-section {
+    background-color: #2a2a2d;
+    /* Slightly lighter than actor section */
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.subtitle-upload-section>label {
+    /* Main label */
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.subtitle-inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    /* Responsive columns */
+    gap: 1rem;
+}
+
+/* Style file inputs within this section */
+.subtitle-upload-section .input-group {
+    margin-bottom: 0;
+    /* Remove default margin */
+}
+
+.subtitle-upload-section .input-group label {
+    font-size: 0.9rem;
+    /* Smaller label */
+    margin-bottom: 0.3rem;
+}
+
+.subtitle-upload-section .input-group input[type="file"] {
+    padding: 0.4rem;
+    /* Smaller padding */
+    font-size: 0.8rem;
+}
+
+.subtitle-upload-section .input-group input[type="file"]::file-selector-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+/* Style for current subtitle status in Edit modal */
+.subtitle-upload-section .input-group small {
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--color-silver);
+}
+
+/* --- Styles for Subtitles in Episode Card --- */
+.episode-card .subtitle-upload-section {
+    margin-top: 0.8rem;
+    margin-bottom: 0;
+    padding: 0.8rem;
+    background-color: #222;
+    /* Slightly darker */
+}
+
+.episode-card .subtitle-upload-section>label {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.episode-card .subtitle-inputs-grid {
+    grid-template-columns: 1fr;
+    /* Stack vertically */
+    gap: 0.5rem;
+}
+
+.episode-card .subtitle-upload-section .input-group label {
+    font-size: 0.75rem;
+}
+
+.episode-card .subtitle-upload-section .input-group small {
+    display: none;
+    /* Hide 'Current: None' in episode cards initially */
+}
+
+.episode-card .subtitle-upload-section .input-group small.has-subtitle {
+    display: block;
+    /* Show only if subtitle exists */
+    color: #00c853;
+    /* Green */
+}
+
+/* --- Styles for Subtitle Delete Checkbox --- */
+.subtitle-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.3rem;
+}
+
+.subtitle-status small {
+    margin-top: 0;
+    /* Override default small margin */
+    flex-grow: 1;
+    /* Take available space */
+}
+
+.subtitle-status small.has-subtitle {
+    color: #00c853;
+    /* Green */
+    font-weight: 600;
+}
+
+.delete-sub-label {
+    display: inline-flex;
+    /* Use flex to align checkbox and text */
+    align-items: center;
+    font-size: 0.8rem;
+    color: #ffcc80;
+    /* Light orange */
+    cursor: pointer;
+    margin-left: 1rem;
+    /* Space from status text */
+}
+
+.delete-sub-label input[type="checkbox"] {
+    margin-right: 0.3rem;
+    accent-color: #ef5350;
+    /* Make checkbox red */
+}
+
+.delete-sub-label:hover {
+    color: #ef5350;
+    /* Red on hover */
+}
+
+/* Season Card එක Collapse (Minimize) වුනාම මේ දේවල් හැංගෙන්න ඕන */
+.season-card.collapsed .episode-list-wrapper, 
+.season-card.collapsed .add-episode-btn-inner {
+    display: none;
+}
+
+/* Toggle Button එකේ මූලික පෙනුම */
+.toggle-season-btn {
+    background: none;
+    border: none;
+    color: #ffd700; /* Gold color */
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    transition: transform 0.3s ease; /* Smooth Animation එක */
+}
+
+/* Minimize (collapsed) වුනාම අයිකන් එක 180° කැරකෙන්න */
+/* එතකොට උඩ ඊතලය (Up) පහළට (Down) හැරෙයි */
+.season-card.collapsed .toggle-season-btn i {
+    transform: rotate(180deg);
+}
+
+/* Collapsed වුනාම අන්තර්ගතය හංගන්න */
+.season-card.collapsed .episode-list-wrapper, 
+.season-card.collapsed .add-episode-btn-inner {
+    display: none;
+}
+
+/* Header එකේ alignment එක ලස්සනට තියාගන්න */
+.season-header {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; (මේක දැනටමත් ඇති) */
+}

@@ -1,0 +1,263 @@
+/* Community Page Variables */
+:root {
+    --bg-dark: #0f0f0f;
+    --card-bg: #1a1a1a;
+    --neon-blue: #00c8ff;
+    --text-gray: #ccc;
+}
+
+body {
+    background-color: var(--bg-dark);
+}
+
+/* HERO SECTION */
+.community-hero {
+    height: 60vh;
+    background: url('../assets/images/community-bg.jpg') center/cover no-repeat; /* Background Image එකක් දාන්න */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), #0f0f0f);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.neon-text {
+    color: var(--neon-blue);
+    text-shadow: 0 0 15px var(--neon-blue);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin-bottom: 25px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* LAYOUT GRID */
+.community-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2:1 Ratio (Feed : Sidebar) */
+    gap: 30px;
+    padding: 0 20px;
+}
+
+/* REVIEW CARDS */
+.section-title {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--neon-blue);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.review-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #333;
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,200,255,0.1);
+    border-color: #555;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.user-avatar-small {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--neon-blue);
+}
+
+.username {
+    display: block;
+    color: white;
+    font-weight: 600;
+}
+
+.user-badge {
+    font-size: 0.75rem;
+    background: #333;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #aaa;
+}
+
+.user-badge.verified {
+    color: #00c853;
+    background: rgba(0, 200, 83, 0.1);
+}
+
+.review-date {
+    display: block;
+    font-size: 0.75rem;
+    color: #777;
+}
+
+.review-rating {
+    margin-left: auto;
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.review-body .movie-tag {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #bbb;
+}
+
+.review-body .movie-tag a {
+    color: var(--neon-blue);
+    text-decoration: none;
+}
+
+.review-body p {
+    color: #ddd;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.review-footer {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+    display: flex;
+    gap: 15px;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.action-btn:hover {
+    color: var(--neon-blue);
+}
+
+/* SIDEBAR WIDGETS */
+.sidebar-widget {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #333;
+}
+
+.sidebar-widget h3 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--neon-blue);
+    text-transform: uppercase;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.stat-item span {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* TOP USERS LIST */
+.top-users-list {
+    list-style: none;
+}
+
+.top-users-list li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+.top-users-list li:last-child {
+    border-bottom: none;
+}
+
+.top-users-list .rank {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #666;
+    width: 20px;
+}
+
+.top-users-list img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.top-users-list .info .name {
+    display: block;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.top-users-list .info .points {
+    font-size: 0.8rem;
+    color: var(--neon-blue);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .community-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,203 @@
+/* ==================================================================
+// ==                ALL SERIES PAGE STYLES                        ==
+// ================================================================== */
+
+/* 'all-movies-page' වෙනුවට 'all-series-page' class එක target කිරීම */
+.all-series-page {
+    padding: 2rem 0;
+    /* Vertical padding */
+}
+
+.page-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.all-series-page h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-neon-blue);
+}
+
+/* --- Filter Container Styles (වෙනසක් නැත) --- */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    background: rgba(43, 0, 64, 0.2);
+    border-radius: 8px;
+    flex-wrap: wrap;
+    /* Allow filters to wrap on small screens */
+}
+
+.filter-container input[type="search"]{
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--color-purple);
+    background: #333;
+    color: var(--color-white);
+    font-size: 1rem;
+    font-family: var(--font-main);
+}
+
+.filter-container select {
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--color-purple);
+    color: var(--color-white);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    cursor: pointer;
+    line-height: 1.6;
+
+    /* Keep background color ONLY */
+    background-color: #333;
+
+    /* Add SVG arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a2a2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+
+    padding-right: 45px; /* Make room for arrow */
+}
+
+.filter-container input[type="search"] {
+    min-width: 250px;
+}
+
+.filter-container select {
+    cursor: pointer;
+}
+
+/* --- Grid සහ Pagination ID වලට අදාළව styles (වෙනසක් නැත) --- */
+#all-series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+#all-series-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    gap: 0.5rem;
+}
+
+/* ==================================================================
+// ==       ALL MOVIES / ALL SERIES RESPONSIVE STYLES            ==
+// ================================================================== */
+
+/* --- Small Devices (Portrait Tablets, Large Phones - 768px and down) --- */
+@media (max-width: 768px) {
+
+    .all-movies-page h1,
+    .all-series-page h1 {
+        /* Titles */
+        font-size: 2rem;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        /* Filters සිරස් අතට stack කිරීම */
+        align-items: stretch;
+        /* Filters full width කිරීම */
+    }
+
+    .filter-container input[type="search"],
+    .filter-container select {
+        width: 100%;
+        /* Filters full width */
+    }
+
+    #all-movies-grid,
+    #all-series-grid {
+        /* Grid එකේ card size එක index.css එකෙන් handle වේ */
+    }
+
+    #all-movies-pagination,
+    #all-series-pagination {
+        /* Pagination buttons wrap වීම style.css එකෙන් handle වේ */
+    }
+
+    /* ⭐️ FIX: Apply multi-column grid for movies grid ⭐️ */
+    #all-movies-grid,
+    #all-series-grid {
+        /* Apply to both pages */
+        display: grid;
+        /* Ensure grid display is set */
+        /* Use a slightly larger min width for tablets */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+        /* Adjust gap if needed */
+        justify-content: center;
+        /* Keep items centered */
+    }
+
+    #all-movies-pagination,
+    #all-series-pagination {
+        /* ... (existing pagination styles) ... */
+    }
+}
+
+/* --- Extra Small Devices (Phones - 576px and down) --- */
+@media (max-width: 576px) {
+    /* ... (other styles like h1, filter-container) ... */
+
+    /* ⭐️ FIX: Apply 2-column grid similar to index page ⭐️ */
+    #all-movies-grid,
+    #all-series-grid {
+        /* Apply to both pages */
+        /* Use the same minmax as index.css */
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 1rem;
+        /* Match index.css gap */
+    }
+}
+
+/* --- Extra Small Devices (Phones - 576px and down) --- */
+@media (max-width: 576px) {
+
+    .all-movies-page h1,
+    .all-series-page h1 {
+        /* Titles */
+        font-size: 1.8rem;
+    }
+
+    .filter-container {
+        padding: 0.8rem;
+        /* Padding අඩු කිරීම */
+        gap: 0.8rem;
+    }
+
+    .filter-container input[type="search"],
+    .filter-container select {
+        padding: 0.7rem;
+        /* Inputs වල padding අඩු කිරීම */
+        font-size: 0.9rem;
+    }
+
+    #all-movies-pagination,
+    #all-series-pagination {
+        gap: 0.3rem;
+        /* Pagination buttons අතර ඉඩ අඩු කිරීම */
+    }
+
+    .pagination-btn {
+        /* style.css එකෙන් override කිරීම */
+        padding: 0.5rem 0.9rem;
+        font-size: 0.9rem;
+    }
+}

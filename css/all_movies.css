@@ -1,0 +1,311 @@
+/* ==================================================================
+// ==                ALL MOVIES PAGE STYLES                        ==
+// ================================================================== */
+
+.all-movies-page {
+    padding: 2rem 0;
+    /* Vertical padding */
+}
+
+.page-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.all-movies-page h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-neon-blue);
+}
+
+/* --- Filter Container Styles --- */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    background: rgba(43, 0, 64, 0.2);
+    border-radius: 8px;
+    flex-wrap: wrap;
+    /* Allow filters to wrap on small screens */
+}
+
+.filter-container input[type="search"]{
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--color-purple);
+    background: #333;
+    color: var(--color-white);
+    font-size: 1rem;
+    font-family: var(--font-main);
+}
+
+.filter-container select {
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--color-purple);
+    color: var(--color-white);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    cursor: pointer;
+    line-height: 1.6;
+
+    /* Keep background color ONLY */
+    background-color: #333;
+
+    /* Add SVG arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a2a2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+
+    padding-right: 45px; /* Make room for arrow */
+}
+
+.filter-container input[type="search"] {
+    min-width: 250px;
+}
+
+.filter-container select {
+    cursor: pointer;
+}
+
+/* --- Movie Grid and Pagination --- */
+#all-movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+#all-movies-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    gap: 0.5rem;
+}
+
+/* ==================================================================
+// ==                ACTOR FILTER STYLES (NEW)                     ==
+// ================================================================== */
+
+/* Wrapper for input, button, and suggestions */
+.actor-filter-wrapper {
+    position: relative; /* Suggestions box එක position කිරීමට */
+    display: flex; /* Input සහ button එක පේළියට තැබීමට */
+    align-items: center;
+}
+
+/* Actor search input (filter-container එකේ stylesම භාවිතා වේ) */
+#filter-actor {
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--color-purple);
+    background: #333;
+    color: var(--color-white);
+    font-size: 1rem;
+    font-family: var(--font-main);
+    min-width: 250px;
+    padding-right: 35px; /* Clear button එකට ඉඩ තැබීම */
+}
+
+/* Clear button (X) */
+#actor-clear-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--color-silver);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 10px;
+    display: none; /* JS මගින් පාලනය වේ */
+}
+#actor-clear-btn:hover {
+    color: var(--color-white);
+}
+
+/* Suggestions dropdown box */
+#actor-suggestions {
+    display: none; /* JS මගින් පාලනය වේ */
+    position: absolute;
+    top: 100%; /* Input එකට පහළින් */
+    left: 0;
+    width: 100%;
+    background: var(--color-dark-grey, #1a1a1d);
+    border: 1px solid var(--color-purple);
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    z-index: 100; /* අනිත් දේවල් වලට උඩින් පෙන්වීමට */
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Individual suggestion item */
+/* Individual suggestion item */
+.suggestion-item {
+    padding: 0.5rem 0.75rem; /* Padding වෙනස් කිරීම */
+    color: var(--color-silver);
+    cursor: pointer;
+    display: flex; /* ⭐️ NEW: Use flexbox ⭐️ */
+    align-items: center; /* ⭐️ NEW: Center items vertically ⭐️ */
+    gap: 0.75rem; /* ⭐️ NEW: Add gap between image and name ⭐️ */
+}
+.suggestion-item:hover {
+    background-color: var(--color-purple);
+    color: var(--color-white);
+}
+
+/* ⭐️ NEW: Actor image in suggestion ⭐️ */
+.suggestion-actor-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Make it round */
+    object-fit: cover;
+    border: 1px solid var(--color-purple);
+}
+
+/* ⭐️ NEW: Actor name in suggestion ⭐️ */
+.suggestion-actor-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#filter-actor::-webkit-search-cancel-button,
+#filter-actor::-webkit-search-decoration {
+    -webkit-appearance: none;
+    display: none;
+}
+
+/* Hide the default 'x' (clear) button in IE/Edge */
+#filter-actor::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* Footer එක හැමවෙලේම පහලින් තියාගන්න (Sticky Footer) */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* මුළු Screen එකේ උස ගන්නවා */
+    margin: 0;
+}
+
+main {
+    flex: 1; /* ඉතුරු වෙලා තියෙන ඉඩ සම්පූර්ණයෙන්ම Main එකට ගන්නවා */
+}
+
+/* ==================================================================
+// ==       ALL MOVIES / ALL SERIES RESPONSIVE STYLES            ==
+// ================================================================== */
+
+/* --- Small Devices (Portrait Tablets, Large Phones - 768px and down) --- */
+/* --- Small Devices (Portrait Tablets, Large Phones - 768px and down) --- */
+@media (max-width: 768px) {
+    .all-movies-page h1 {
+        /* Titles */
+        font-size: 2rem;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        /* Filters සිරස් අතට stack කිරීම */
+        align-items: stretch;
+        /* Filters full width කිරීම */
+    }
+
+    /* ⭐️ FIX: Ensure ALL filters take full width ⭐️ */
+    .all-movies-page .filter-container input[type="search"],
+    .all-movies-page .filter-container select {
+        width: 100% !important;
+        /* Force full width */
+        min-width: unset;
+        /* Remove any minimum width that might interfere */
+    }
+
+    #all-movies-grid {
+        /* Grid styles adjusted elsewhere */
+    }
+
+    #all-movies-pagination {
+        /* Pagination styles adjusted elsewhere */
+    }
+
+    /* ⭐️ FIX: Apply multi-column grid for movies grid ⭐️ */
+    #all-movies-grid,
+    #all-series-grid {
+        /* Apply to both pages */
+        display: grid;
+        /* Ensure grid display is set */
+        /* Use a slightly larger min width for tablets */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+        /* Adjust gap if needed */
+        justify-content: center;
+        /* Keep items centered */
+    }
+
+    #all-movies-pagination,
+    #all-series-pagination {
+        /* ... (existing pagination styles) ... */
+    }
+}
+
+/* --- Extra Small Devices (Phones - 576px and down) --- */
+@media (max-width: 576px) {
+    /* ... (other styles like h1, filter-container) ... */
+
+    /* ⭐️ FIX: Apply 2-column grid similar to index page ⭐️ */
+    #all-movies-grid,
+    #all-series-grid {
+        /* Apply to both pages */
+        /* Use the same minmax as index.css */
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 1rem;
+        /* Match index.css gap */
+    }
+}
+
+/* --- Extra Small Devices (Phones - 576px and down) --- */
+@media (max-width: 576px) {
+    .all-movies-page h1 {
+        /* Titles */
+        font-size: 1.8rem;
+    }
+
+    .filter-container {
+        padding: 0.8rem;
+        gap: 0.8rem;
+    }
+
+    /* Re-apply width rule for extra small screens too */
+    .all-movies-page .filter-container input[type="search"],
+    .all-movies-page .filter-container select {
+        width: 100% !important;
+        min-width: unset;
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    #all-movies-pagination {
+        gap: 0.3rem;
+    }
+
+    .pagination-btn {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.9rem;
+    }
+}
